@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Forges de Bazas — Mes demandes (service commercial)
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -30,7 +26,6 @@ body {
   background: var(--bg);
 }
 
-/* ---------------- Page ---------------- */
 
 .page {
   max-width: 1080px;
@@ -67,7 +62,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* ---------------- Table ---------------- */
 
 .table-card {
   background: var(--paper);
@@ -114,7 +108,6 @@ body {
 
 .col-actions { white-space: nowrap; text-align: right; }
 
-/* ---------------- Badges ---------------- */
 
 .badge {
   display: inline-flex;
@@ -140,7 +133,6 @@ body {
 .badge-progress::before { animation: pulseDot 2s ease-in-out infinite; }
 @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-/* ---------------- Boutons d'action ---------------- */
 
 .btn-icon {
   background: none;
@@ -181,7 +173,6 @@ body {
   color: var(--muted);
 }
 
-/* ---------------- Boutons génériques ---------------- */
 
 .btn-primary {
   background: linear-gradient(135deg, var(--orange), var(--orange-dark));
@@ -214,9 +205,7 @@ body {
 }
 .btn-secondary:hover { border-color: var(--charcoal); background: var(--bg); }
 
-/* ==========================================================================
-   Modales — identiques à Service technique
-   ========================================================================== */
+
 
 .modal-overlay {
   position: fixed;
@@ -452,7 +441,6 @@ body {
   font-weight: 700;
 }
 
-/* ---------------- Impression / export PDF ---------------- */
 
 @media print {
   body * { visibility: hidden; }
@@ -479,7 +467,6 @@ body {
   }
 }
 
-/* ---------------- Responsive ---------------- */
 
 @media (max-width: 720px) {
   .page { padding: 24px; }

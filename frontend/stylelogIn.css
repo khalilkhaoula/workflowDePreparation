@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Forges de Bazas — Login
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -37,7 +33,6 @@ body {
   min-height: 100vh;
 }
 
-/* ---------------- Left panel : image ---------------- */
 
 .side {
   position: relative;
@@ -60,7 +55,6 @@ body {
   to   { transform: scale(1.08) translate(-1%, -1%); }
 }
 
-/* halos orangés flous, effet néon discret décoratif */
 .side::before {
   content: '';
   position: absolute;
@@ -73,7 +67,6 @@ body {
   pointer-events: none;
 }
 
-/* Voile sombre en bas de l'image pour la lisibilité du titre */
 .side::after {
   content: "";
   position: absolute;
@@ -110,7 +103,6 @@ body {
   text-shadow: 0 0 24px rgba(242, 148, 30, 0.5);
 }
 
-/* ---------------- Right panel : form ---------------- */
 
 .form-side {
   flex: 1;
@@ -284,7 +276,6 @@ body {
 }
 .footer-text a:hover { color: var(--orange-dark); text-decoration: underline; }
 
-/* ---------------- Responsive ---------------- */
 
 @media (max-width: 900px) {
   body { flex-direction: column; }

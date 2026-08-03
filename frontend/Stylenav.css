@@ -11,7 +11,6 @@
   flex-direction: column;
 }
 
-/* ---------------- Barre latérale (clair + accents néon) ---------------- */
 
 .sidebar-logo-row {
   display: flex;
@@ -66,7 +65,6 @@
   letter-spacing: 1.2px;
   color: var(--orange-dark);
 }
-/* halo orangé flouté derrière le badge, qui respire doucement */
 
 
 @keyframes logoBreathe {
@@ -74,7 +72,6 @@
   50%      { opacity: 0.7; transform: scale(1.06); }
 }
 
-/* fin liseré dégradé façon "anneau premium", tourne très lentement */
 .logo-badge::after {
   content: '';
   position: absolute;
@@ -85,13 +82,13 @@
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: 0.85;               /* visible en permanence */
+  opacity: 0.85;              
   transition: opacity 0.3s ease;
   animation: logoSpin 6s linear infinite;
   pointer-events: none;
 }
 @keyframes logoSpin { to { transform: rotate(360deg); } }
-.logo-badge:hover::after { opacity: 1; }   /* légère intensification au survol, optionnel */
+.logo-badge:hover::after { opacity: 1; }   
 
 .logo-badge:hover::after { opacity: 1; }
 
@@ -119,7 +116,7 @@
   flex-direction: column;
   gap: 4px;
   flex: 1;
-  padding: 16px 10px 0;   /* ← 16px remplace l'ancien padding global du haut */
+  padding: 16px 10px 0;   
 }
 
 .nav-item {
@@ -172,7 +169,7 @@
 }
 .sidebar.open .nav-item .text { opacity: 1; transform: translateX(0); }
 
-/* ---- État actif : glow néon doux sur fond clair ---- */
+
 .nav-item.active {
   color: var(--orange-dark, #d97b0f);
   background: linear-gradient(90deg, rgba(242, 148, 30, 0.14), rgba(242, 148, 30, 0.02));
@@ -198,7 +195,6 @@
   50%      { box-shadow: 0 0 12px 2px rgba(242, 148, 30, 0.9), 0 0 22px 3px rgba(242, 148, 30, 0.5); }
 }
 
-/* ---- Tooltips en mode replié ---- */
 .sidebar:not(.open) .nav-item[data-tooltip]:hover::after {
   content: attr(data-tooltip);
   position: absolute;
@@ -248,21 +244,20 @@
 
 .sidebar-footer {
   margin-top: auto;
-  padding: 14px 10px 20px;   /* ← 20px ajouté en bas pour compenser */
+  padding: 14px 10px 20px;   
   border-top: 1px solid var(--line);
 }
 
 .nav-item-logout:hover { color: #d9534f; }
 .nav-item-logout:hover::before { background: rgba(217, 83, 79, 0.1); }
 
-/* ---------------- Topbar ---------------- */
 
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 63px;              /* même hauteur que .sidebar-logo-row */
-  padding: 0 32px;           /* padding vertical retiré, aminci au passage */
+  height: 63px;              
+  padding: 0 32px;           
   background: rgba(246, 245, 243, 0.85);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
@@ -396,7 +391,6 @@
 }
 .topbar-actions .user-avatar svg { stroke: #fff; }
 
-/* ---------------- Responsive ---------------- */
 
 @media (max-width: 900px) {
   .sidebar { position: fixed; top: 0; bottom: 0; left: 0; z-index: 90; }

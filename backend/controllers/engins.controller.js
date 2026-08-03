@@ -57,17 +57,6 @@ async function resoudre(req, res) {
   res.json({ id: rows.length ? rows[0].id : null });
 }
 
-async function create(req, res) {
-  const { nom, marque, modele, mat, piping, capacite, vitesse, hauteurLevage, imageUrl } = req.body;
-  if (!nom) return res.status(400).json({ error: "Nom de l'engin requis." });
-
-  const [result] = await pool.query(
-    `INSERT INTO engins (nom, marque, modele, mat, piping, capacite, vitesse, hauteur_levage, image_url)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [nom, marque, modele, mat, piping, capacite, vitesse, hauteurLevage, imageUrl]
-  );
-  res.status(201).json({ id: result.insertId, nom });
-}
 
 async function trouverOuCreerOption(connection, nom, temps) {
   const [existing] = await connection.query(`SELECT id FROM options WHERE nom_option = ? LIMIT 1`, [nom]);

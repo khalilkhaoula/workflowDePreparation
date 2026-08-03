@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Forges de Bazas — Mes tâches (technicien)
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -59,7 +55,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* ---------------- Filtres ---------------- */
 
 .filters {
   display: flex;
@@ -96,7 +91,6 @@ body {
 .view-panel.active { display: block; animation: fadeIn 0.2s ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* ---------------- Groupes par jour ---------------- */
 
 .day-group {
   background: var(--paper);
@@ -139,7 +133,6 @@ body {
   color: var(--muted);
 }
 
-/* ---------------- Lignes de tâche ---------------- */
 
 .task-row {
   display: flex;
@@ -223,7 +216,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* ---------------- Toast ---------------- */
 
 .toast {
   position: fixed;
@@ -244,7 +236,6 @@ body {
 }
 .toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ---------------- Responsive ---------------- */
 
 @media (max-width: 640px) {
   .page { padding: 24px 18px; }

@@ -142,8 +142,6 @@ async function list(req, res) {
 
   res.json({ demandes: rows, total, page: Number(page), limit: Number(limit) });
 }
-// Détail : la vue diffère selon le rôle.
-// - Commercial : uniquement le libellé de l'option choisie (+ sous-option), jamais pièces/temps.
 
 async function getDetail(req, res) {
   const { reference } = req.params;

@@ -1,5 +1,5 @@
 let pendingImage = null;
-const API_BASE = ' http://localhost:3000/api';
+const API_BASE = '/api';
 function authHeaders() {
   const token = localStorage.getItem('authToken');
   return token ? { Authorization: `Bearer ${token}` } : {};
@@ -31,7 +31,6 @@ document.getElementById('newOptLabel').addEventListener('blur', async () => {
   document.getElementById('sousOptionsCatalogueList').innerHTML = sousOptions.map(s => `<option value="${s}">`).join('');
 });
 
-/* ---------------- Tags génériques (pièces) ---------------- */
 function addPieceTag(tagList, value) {
   const tag = document.createElement('span');
   tag.className = 'tag';
@@ -100,7 +99,6 @@ function majExclusivitePieces() {
   if (!actif) document.getElementById('newOptPieces').innerHTML = '';
 }
 
-// Dans addOptionBtn, la finalisation de l'option :
 document.getElementById('addOptionBtn').addEventListener('click', () => {
   const nom = document.getElementById('newOptLabel').value.trim();
   const duration = Number(document.getElementById('newOptDuration').value) || 0;
@@ -144,8 +142,8 @@ document.getElementById('enginForm').addEventListener('submit', async (e) => {
     nom: document.getElementById('enginName').value.trim(),
     marque: document.getElementById('enginMarque').value.trim(),
     modele: document.getElementById('enginModele').value.trim(),
-    piping: document.getElementById('enginPiping').value,  // ← ajouté
-    mat: document.getElementById('enginMat').value,        // ← ajouté
+    piping: document.getElementById('enginPiping').value,   
+    mat: document.getElementById('enginMat').value,        
     capacite: document.getElementById('enginCapacite').value.trim(),
     vitesse: document.getElementById('enginVitesse').value.trim(),
     hauteurLevage: document.getElementById('enginHauteur').value.trim(),

@@ -1,4 +1,4 @@
-const API_BASE = ' http://localhost:3000/api';
+const API_BASE = '/api';
 function authHeaders() {
   const token = localStorage.getItem('authToken');
   return token ? { Authorization: `Bearer ${token}` } : {};
@@ -62,7 +62,7 @@ function openDetail(id) {
     </div>
   `).join('');
 
-  // frontend/engins.js — dans openDetail(), remplace le bloc timeList
+   
 document.getElementById('timeList').innerHTML = e.options.map(opt => `
   <div class="time-row">
     <span class="time-badge">${opt.duration}h</span>

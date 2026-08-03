@@ -9,14 +9,13 @@ function requireAuth(req, res, next) {
   }
 
   try {
-    req.user = jwt.verify(token, process.env.JWT_SECRET); // { id, role, nom, prenom }
+    req.user = jwt.verify(token, process.env.JWT_SECRET);  
     next();
   } catch (err) {
     return res.status(401).json({ error: 'Session invalide ou expirée.' });
   }
 }
 
-// Restreint une route à certains rôles, ex. requireRole('admin')
 function requireRole(...roles) {
   return (req, res, next) => {
     if (!req.user || !roles.includes(req.user.role)) {

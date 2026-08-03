@@ -71,7 +71,6 @@ async function chargerSuggestionsLibre(id, endpoint, filterFields) {
   values.forEach(v => datalist.appendChild(new Option(v, v)));
 }
 
-// ---------- Suggestions : champ verrouillé (select pur — Modèle) ----------
 
 async function chargerSuggestionsVerrouillee(id, endpoint, filterFields) {
   const select = document.getElementById(id);
@@ -90,21 +89,20 @@ async function chargerSuggestionsVerrouillee(id, endpoint, filterFields) {
   select.innerHTML = '<option value="">Sélectionner…</option>';
   values.forEach(v => select.appendChild(new Option(v, v)));
 
-  // Si la valeur choisie n'existe plus dans la nouvelle liste (ex: marque changée), on la vide.
   select.value = values.includes(currentValue) ? currentValue : '';
 }
 
 async function rafraichirCascade() {
   if (!document.getElementById('modele')) return;
-  await chargerSuggestionsVerrouillee('modele', 'modeles', []);   // plus de filtre par marque
+  await chargerSuggestionsVerrouillee('modele', 'modeles', []);    
   await chargerSuggestionsLibre('mat', 'mats', ['modele']);
   await chargerSuggestionsLibre('piping', 'pipings', ['modele']);
 }
 
-// Déclenché à chaque changement de marque/modele/mat/piping.
+
 async function onEnginFieldChange() {
   await rafraichirCascade();
-  await majMarqueDepuisModele();   // ← nouveau
+  await majMarqueDepuisModele();   
   await genererChampsNumSerie();
   await chargerOptionsPourModele();
 }
@@ -118,10 +116,9 @@ async function majMarqueDepuisModele() {
   const res = await fetch(`${API_BASE}/engins/marque-par-modele/${encodeURIComponent(modele)}`, { headers: authHeaders() });
   const data = await res.json();
   marqueInput.value = data.marque || '';
-  updateFieldRaw('marque', marqueInput.value);   // pour l'affichage seulement, pas envoyé au backend
+  updateFieldRaw('marque', marqueInput.value);    
 }
 
-// ---------- N° de série dynamiques selon "Nombre d'engins" ----------
 
 function getNumSeriesActuelles() {
   return Array.from(document.querySelectorAll('#numSerieContainer input'))
@@ -262,7 +259,6 @@ function restoreFreeOptions() {
   loadData().freeOptions?.forEach(renderFreeOption);
 }
 
-// ---------- Sauvegarde / envoi vers le backend ----------
 
 function buildPayload(envoyerMaintenant) {
   const data = loadData();

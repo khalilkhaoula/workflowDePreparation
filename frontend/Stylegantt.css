@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Forges de Bazas — Planification (calendrier mensuel)
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -57,7 +53,6 @@ body {
   font-size: 0.88rem;
 }
 
-/* ---------------- Navigation mois ---------------- */
 
 .nav-bar {
   display: flex;
@@ -97,7 +92,7 @@ body {
   text-transform: capitalize;
 }
 
-/* ---------------- Calendrier ---------------- */
+
 
 .month-card {
   background: var(--paper);
@@ -152,7 +147,7 @@ body {
 .month-cell.muted { color: var(--muted); opacity: 0.45; }
 .month-cell.muted:hover { background: var(--bg); box-shadow: none; }
 
-/* Case du jour actuel */
+
 .month-cell.today {
   background: linear-gradient(160deg, rgba(242, 148, 30, 0.08), transparent 60%);
 }
@@ -206,7 +201,7 @@ body {
 }
 .month-cell:hover .cell-load::before { background: #fff; }
 
-/* ---------------- Panneau détail du jour ---------------- */
+
 
 .day-overlay {
   position: fixed;
@@ -342,7 +337,6 @@ body {
   font-size: 0.88rem;
 }
 
-/* ---------------- Bandeau demande en attente ---------------- */
 
 .pending-banner {
   display: flex;
@@ -367,7 +361,6 @@ body {
 .day-task-checkbox input { width: 18px; height: 18px; accent-color: var(--orange); }
 .checkbox-field label { display: flex; align-items: center; gap: 8px; font-weight: 500; }
 
-/* ---------------- Bouton + formulaire ---------------- */
 
 .btn-add-option {
   width: 100%;
@@ -439,7 +432,6 @@ body {
   background: var(--paper);
 }
 
-/* ---------------- Select avec recherche ---------------- */
 
 .search-select { position: relative; }
 
@@ -493,7 +485,7 @@ body {
   color: var(--muted);
 }
 
-/* ---------------- Boutons ---------------- */
+
 
 .form-actions {
   display: flex;
@@ -530,7 +522,6 @@ body {
 }
 .btn-secondary:hover { border-color: var(--charcoal); background: var(--bg); }
 
-/* ---------------- Responsive ---------------- */
 
 @media (max-width: 720px) {
   .month-cell { min-height: 64px; }

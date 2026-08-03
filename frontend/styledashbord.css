@@ -261,7 +261,6 @@ body {
 
 .dot-ontime { background: var(--orange); }
 .dot-late { background: var(--bg); border: 2px solid var(--line); }
-/* ---------------- Animations ---------------- */
 
 .page {
   animation: pageIn 0.35s ease;
@@ -304,7 +303,6 @@ body {
   50%      { box-shadow: 0 0 0 6px rgba(214, 69, 69, 0.1); }
 }
 
-/* Barres du graphique : poussent depuis l'axe au chargement */
 .bar {
   transform-origin: bottom;
   transform-box: fill-box;
@@ -317,7 +315,6 @@ body {
   to   { transform: scaleY(1); }
 }
 
-/* Jauge : le tracé se dessine au chargement */
 .gauge-value {
   animation: gaugeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }

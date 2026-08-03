@@ -41,10 +41,6 @@ input.addEventListener('input', () => {
     }
   });
 });
-/* ==========================================================================
-   Nom / rôle réels de l'utilisateur connecté + badge de notifications réel.
-   Fonctionne sur toute page ayant .user-name / .user-role / .badge-count.
-   ========================================================================== */
 
 const ROLE_LABELS = {
   'responsable commercial': 'Responsable commercial',

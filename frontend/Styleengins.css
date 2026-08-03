@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Forges de Bazas — Catalogue des engins
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
@@ -58,7 +54,6 @@ body {
   font-size: 0.86rem;
 }
 
-/* ---------------- Grille de cartes ---------------- */
 
 .engin-grid {
   display: grid;
@@ -148,7 +143,6 @@ body {
   text-overflow: ellipsis;
 }
 
-/* ---------------- Pied de page / bouton ajouter ---------------- */
 
 .page-footer {
   display: flex;
@@ -179,7 +173,6 @@ body {
 .btn-primary:hover { box-shadow: 0 6px 20px rgba(242, 148, 30, 0.42); transform: translateY(-1px); }
 .btn-primary:active { transform: translateY(0) scale(0.98); }
 
-/* ---------------- Fenêtre de détail ---------------- */
 
 .drawer-overlay {
   position: fixed;
@@ -281,7 +274,6 @@ body {
 .drawer-specs .spec-item dt { color: var(--muted); }
 .drawer-specs .spec-item dd { color: var(--ink); text-align: left; font-size: 0.86rem; }
 
-/* ===== Colonnes : options / pièces / temps ===== */
 
 .detail-columns {
   display: grid;
@@ -320,7 +312,6 @@ body {
   box-shadow: 0 0 6px rgba(242, 148, 30, 0.5);
 }
 
-/* Options */
 .option-simple-list { display: flex; flex-direction: column; gap: 0; }
 
 .option-simple-row {
@@ -346,7 +337,6 @@ body {
 
 .option-simple-label { font-weight: 700; color: var(--charcoal-dark); }
 
-/* Pièces */
 .pieces-list { display: flex; flex-direction: column; gap: 0; }
 
 .piece-row {
@@ -367,7 +357,6 @@ body {
 .piece-row .piece-item:not(:last-child)::after { content: " • "; color: var(--orange); font-weight: bold; }
 .piece-row .piece-dot { display: none; }
 
-/* Temps */
 .time-list { display: flex; flex-direction: column; gap: 0; }
 
 .time-row {
@@ -396,14 +385,13 @@ body {
   text-align: center;
 }
 
-/* Survol des lignes */
+
 .option-simple-row:hover,
 .piece-row:hover,
 .time-row:hover {
   background-color: var(--orange-soft);
 }
 
-/* ---------------- Responsive ---------------- */
 
 @media (max-width: 1080px) {
   .engin-grid { grid-template-columns: repeat(3, 1fr); }

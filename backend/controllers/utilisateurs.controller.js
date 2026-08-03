@@ -7,7 +7,7 @@ function generateTempPassword() {
   return crypto.randomBytes(6).toString('base64').replace(/[+/=]/g, '').slice(0, 10);
 }
 
-// TODO (email) : brancher un vrai envoi (Nodemailer/SendGrid/SES) au lieu du console.log.
+ 
 const { envoyerIdentifiants } = require('../services/mail.service');
 
 async function list(req, res) {

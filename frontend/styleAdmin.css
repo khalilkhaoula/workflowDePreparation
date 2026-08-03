@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Forges de Bazas — Administration (gestion des comptes)
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -67,7 +63,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* ---------------- Onglets ---------------- */
 
 .tabs {
   display: flex;
@@ -111,7 +106,6 @@ body {
 .tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* ---------------- Filtres ---------------- */
 
 .filters {
   display: flex;
@@ -141,7 +135,6 @@ body {
   box-shadow: 0 4px 12px rgba(29, 30, 32, 0.18);
 }
 
-/* ---------------- Table ---------------- */
 
 .table-card {
   background: var(--paper);
@@ -215,7 +208,6 @@ body {
   box-shadow: 0 3px 8px rgba(242, 148, 30, 0.3);
 }
 
-/* ---------------- Badges ---------------- */
 
 .badge {
   display: inline-flex;
@@ -243,7 +235,6 @@ body {
 .badge-inactive    { background: #ececea; color: var(--muted); }
 .badge-inactive::before { background: var(--muted); }
 
-/* ---------------- Boutons ---------------- */
 
 .btn-primary {
   background: linear-gradient(135deg, var(--orange), var(--orange-dark));
@@ -298,7 +289,6 @@ body {
 
 .btn-icon-danger { color: var(--danger); border-color: rgba(214, 69, 69, 0.3); }
 .btn-icon-danger:hover { background: rgba(214, 69, 69, 0.08); border-color: var(--danger); color: var(--danger); }
-/* ---------------- Modal ---------------- */
 
 .modal-overlay {
   position: fixed;
@@ -419,7 +409,6 @@ body {
   margin-top: 1px;
 }
 
-/* ---------------- Journal d'activité ---------------- */
 
 .logs-table {
   width: 100%;
@@ -461,7 +450,6 @@ body {
 .log-tag-demande  { background: rgba(47, 111, 237, 0.12); color: var(--commercial); }
 .log-tag-planning { background: rgba(47, 143, 110, 0.12); color: var(--technique); }
 
-/* ---------------- Toast ---------------- */
 
 .toast {
   position: fixed;
@@ -488,7 +476,6 @@ body {
   margin-top: 24px;
 }
 
-/* ---------------- Responsive ---------------- */
 
 @media (max-width: 760px) {
   .page { padding: 24px 18px; }

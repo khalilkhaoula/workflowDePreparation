@@ -193,7 +193,7 @@ async function annulerPlanification(req, res) {
     return res.status(409).json({ error: 'Impossible de retirer du planning une option déjà terminée.' });
   }
   await pool.query(
-    `UPDATE demande_options SET date_planifiee = NULL, heure_debut = NULL, temps_main_oeuvre_h = NULL, technicien_id = NULL WHERE id = ?`,
+    `UPDATE demande_options SET date_planifiee = NULL, heure_debut = NULL, technicien_id = NULL WHERE id = ?`,
     [id]
   );
   res.json({ id: Number(id) });

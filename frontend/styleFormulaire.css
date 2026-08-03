@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Forges de Bazas — Nouvelle demande (formulaire en 3 étapes)
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -41,7 +37,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------------- Stepper ---------------- */
 
 .stepper {
   display: flex;
@@ -101,7 +96,7 @@ body {
   transition: transform 0.4s ease;
 }
 
-/* Étape active */
+
 .step.active .circle {
   border-color: var(--orange);
   background: var(--orange);
@@ -114,7 +109,7 @@ body {
   font-weight: 700;
 }
 
-/* Étape complétée */
+
 .step.done .circle {
   border-color: var(--orange);
   background: var(--paper);
@@ -128,7 +123,6 @@ body {
 .step.done .step-label { color: var(--charcoal-dark); }
 .step.done + .step-line::after { transform: scaleX(1); }
 
-/* ---------------- Carte formulaire ---------------- */
 
 .wizard-card {
   background: var(--paper);
@@ -221,7 +215,6 @@ body {
   cursor: not-allowed;
 }
 
-/* ---------------- Options / lignes ajoutées ---------------- */
 
 .option-row {
   border: 1px solid var(--line);
@@ -283,7 +276,6 @@ body {
 }
 .option-added-row button:hover { color: var(--danger); background: rgba(214, 69, 69, 0.08); }
 
-/* ---------------- Select + ajout de valeur libre ---------------- */
 
 .select-row { display: flex; gap: 8px; }
 .select-row select { flex: 1; }
@@ -341,7 +333,6 @@ body {
 
 .btn-tag-add { flex-shrink: 0; white-space: nowrap; padding: 0 16px; }
 
-/* Tags (équipements/options ajoutés) */
 
 .tag-list {
   display: flex;
@@ -375,7 +366,6 @@ body {
 }
 .tag button:hover { color: var(--danger); }
 
-/* ---------------- Navigation ---------------- */
 
 .wizard-nav {
   display: flex;
@@ -421,7 +411,6 @@ body {
 .btn-secondary:disabled { opacity: 0.45; cursor: not-allowed; }
 .btn-secondary:disabled:hover { border-color: var(--line); background: none; }
 
-/* ---------------- Responsive ---------------- */
 
 @media (max-width: 640px) {
   .grid-2 { grid-template-columns: 1fr; }
