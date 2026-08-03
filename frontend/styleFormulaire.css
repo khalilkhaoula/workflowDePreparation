@@ -1,0 +1,433 @@
+/* ==========================================================================
+   Forges de Bazas — Nouvelle demande (formulaire en 3 étapes)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --charcoal: #53575c;
+  --charcoal-dark: #35383b;
+  --ink: #1d1e20;
+  --orange: #f2941e;
+  --orange-dark: #d97b0f;
+  --orange-soft: rgba(242, 148, 30, 0.1);
+  --bg: #f6f5f3;
+  --paper: #ffffff;
+  --line: #e3e1dd;
+  --muted: #8a8d90;
+  --danger: #d64545;
+
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 44px 24px 80px;
+  animation: pageIn 0.35s ease;
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------- Stepper ---------------- */
+
+.stepper {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 36px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: var(--paper);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.step-label {
+  font-size: 0.78rem;
+  text-align: center;
+  color: var(--muted);
+  font-weight: 500;
+  max-width: 120px;
+  transition: color 0.2s ease;
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--line);
+  margin-top: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.step-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+/* Étape active */
+.step.active .circle {
+  border-color: var(--orange);
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 0 0 5px rgba(242, 148, 30, 0.16), 0 4px 14px rgba(242, 148, 30, 0.35);
+  transform: scale(1.06);
+}
+.step.active .step-label {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Étape complétée */
+.step.done .circle {
+  border-color: var(--orange);
+  background: var(--paper);
+  color: var(--orange-dark);
+  font-size: 0;
+}
+.step.done .circle::after {
+  content: "✓";
+  font-size: 1.05rem;
+}
+.step.done .step-label { color: var(--charcoal-dark); }
+.step.done + .step-line::after { transform: scaleX(1); }
+
+/* ---------------- Carte formulaire ---------------- */
+
+.wizard-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 38px;
+  box-shadow: 0 1px 2px rgba(29, 30, 32, 0.03), 0 12px 32px rgba(29, 30, 32, 0.05);
+  animation: cardIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.wizard-step { display: none; }
+.wizard-step.active { display: block; }
+
+.wizard-card h2,
+.wizard-step h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-size: 1.3rem;
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.wizard-card h2::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  border-radius: 3px;
+  background: var(--orange);
+  box-shadow: 0 0 8px rgba(242, 148, 30, 0.5);
+}
+
+.wizard-card .sub,
+.wizard-step .sub {
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 24px;
+  margin-bottom: 8px;
+}
+
+.field { margin-bottom: 20px; }
+
+.field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--charcoal-dark);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 11px 13px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  resize: vertical;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-soft);
+  background: var(--paper);
+}
+
+.field input[readonly] {
+  background: var(--bg);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+/* ---------------- Options / lignes ajoutées ---------------- */
+
+.option-row {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  transition: border-color 0.15s ease;
+}
+.option-row:hover { border-color: #d8d5d0; }
+
+.option-row .sous-option-field {
+  margin-top: 10px;
+  padding-left: 20px;
+  border-left: 2px solid var(--orange-soft);
+}
+.option-row .sous-option-field label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.num-serie-row { margin-bottom: 8px; }
+.num-serie-row input { width: 100%; }
+
+.options-added-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-added-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 0.87rem;
+  animation: rowIn 0.2s ease;
+}
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.option-added-row button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--muted);
+  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.option-added-row button:hover { color: var(--danger); background: rgba(214, 69, 69, 0.08); }
+
+/* ---------------- Select + ajout de valeur libre ---------------- */
+
+.select-row { display: flex; gap: 8px; }
+.select-row select { flex: 1; }
+
+.btn-add {
+  flex-shrink: 0;
+  width: 42px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--orange-dark);
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.15s ease;
+}
+.btn-add:hover { border-color: var(--orange); background: var(--orange-soft); transform: translateY(-1px); }
+
+.add-inline {
+  display: none;
+  gap: 8px;
+  margin-top: 8px;
+}
+.add-inline.active { display: flex; animation: fadeIn 0.15s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.add-inline input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  background: var(--bg);
+}
+.add-inline input:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-soft);
+  background: var(--paper);
+}
+
+.btn-confirm {
+  flex-shrink: 0;
+  padding: 0 18px;
+  border: none;
+  background: var(--charcoal-dark);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.btn-confirm:hover { background: var(--ink); }
+
+.btn-tag-add { flex-shrink: 0; white-space: nowrap; padding: 0 16px; }
+
+/* Tags (équipements/options ajoutés) */
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--orange-soft);
+  color: var(--orange-dark);
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  animation: rowIn 0.2s ease;
+}
+
+.tag button {
+  background: none;
+  border: none;
+  color: var(--orange-dark);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s ease;
+}
+.tag button:hover { color: var(--danger); }
+
+/* ---------------- Navigation ---------------- */
+
+.wizard-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.nav-right { display: flex; gap: 12px; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(242, 148, 30, 0.3);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-primary:hover { box-shadow: 0 6px 20px rgba(242, 148, 30, 0.42); transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0) scale(0.98); }
+
+.btn-secondary {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--charcoal-dark);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.btn-secondary:hover { border-color: var(--charcoal); background: var(--bg); }
+.btn-secondary:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-secondary:disabled:hover { border-color: var(--line); background: none; }
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 640px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .step-label { display: none; }
+  .wizard-card { padding: 24px; }
+  .wizard-nav { flex-direction: column; gap: 16px; align-items: stretch; }
+  .nav-right { justify-content: stretch; }
+  .nav-right button, .nav-right a { flex: 1; justify-content: center; }
+}

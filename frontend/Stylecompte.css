@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --charcoal: #53575c;
+  --charcoal-dark: #35383b;
+  --ink: #1d1e20;
+  --orange: #f2941e;
+  --orange-dark: #d97b0f;
+  --orange-soft: rgba(242, 148, 30, 0.12);
+  --bg: #f6f5f3;
+  --paper: #ffffff;
+  --line: #e3e1dd;
+  --muted: #8a8d90;
+  --success: #2f9e5c;
+  --error: #d9534f;
+
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 36px 32px 60px;
+}
+
+.page-head { margin-bottom: 28px; }
+
+.page-head h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px;
+  font-size: 1.6rem;
+}
+
+.page-head .sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.profile-card,
+.settings-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 1px 2px rgba(29, 30, 32, 0.03), 0 8px 24px rgba(29, 30, 32, 0.04);
+  transition: box-shadow 0.2s ease;
+}
+
+.settings-card { grid-column: 2; }
+.settings-card:hover { box-shadow: 0 2px 4px rgba(29, 30, 32, 0.04), 0 12px 32px rgba(29, 30, 32, 0.06); }
+
+.profile-card { grid-row: span 2; text-align: center; align-self: start; }
+
+.profile-avatar {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, var(--orange), var(--orange-dark));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 18px rgba(242, 148, 30, 0.35);
+}
+
+.profile-card h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0 0 10px;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--orange-soft);
+  color: var(--orange-dark);
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.profile-role { margin: 0 0 14px; }
+
+.profile-since {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.settings-card h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin: 0 0 22px;
+}
+
+.card-icon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--orange);
+  fill: none;
+  stroke-width: 1.8;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 20px;
+}
+
+.field-full { grid-column: 1 / -1; }
+
+.field { margin-bottom: 18px; }
+
+.field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--charcoal-dark);
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-soft);
+  background: var(--paper);
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.save-hint {
+  font-size: 0.82rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.save-hint.visible { opacity: 1; transform: translateY(0); }
+.save-hint-ok { color: var(--success); }
+.save-hint-error { color: var(--error); }
+
+.btn-primary {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:hover { background: var(--orange-dark); }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-secondary {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--charcoal-dark);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.btn-secondary:hover { border-color: var(--charcoal); background: var(--bg); }
+
+.btn-block { width: 100%; }
+
+@media (max-width: 780px) {
+  .account-grid { grid-template-columns: 1fr; }
+  .settings-card { grid-column: 1; }
+  .profile-card { grid-row: auto; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .field-full { grid-column: 1; }
+}

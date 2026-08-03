@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="access-control.js"></script>
+    <title>Connexion — Forges de Bazas</title>
+    <link rel="stylesheet" href="stylelogIn.css">
+</head>
+<body>
+
+  <div class="side">
+     <h1 class="hero-title">Planifiez la <span>préparation</span> des engins, sans friction.</h1>
+    <img src="/images/658_768x400_toyota mh.jpg" alt="">
+
+</div>
+
+  <div class="form-side">
+    <div class="form-box">
+      <h1>Connexion</h1>
+      <p class="sub">Accédez à votre espace .</p>
+
+      <form onsubmit="event.preventDefault();">
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="nom@entreprise.com" required>
+        </div>
+        <div class="field">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <div class="row-between">
+          <label><input type="checkbox" style="width:auto;"> Se souvenir de moi</label>
+          <a href="#">Mot de passe oublié ?</a>
+        </div>
+        <button type="submit" class="btn-primary">Se connecter</button>
+      </form>
+      <p id="loginError" class="error-text"></p>
+
+      <div class="divider">ou</div>
+      <p class="footer-text">Pas encore de compte ? <a href="#">Contacter l'Administrateur</a></p>
+    </div>
+  </div>
+  <script>
+document.querySelector('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const motDePasse = document.getElementById('password').value;
+  const errorBox = document.getElementById('loginError');
+  if (errorBox) errorBox.textContent = '';
+
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, motDePasse }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erreur de connexion');
+
+    localStorage.setItem('authToken', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    const redirections = {
+      'responsable commercial': 'comercial.html',
+      'assistant commercial': 'comercial.html',
+      'responsable technique': 'Technique.html',
+      'assistant technique': 'Technique.html',
+      'technicien': 'Technicien.html',
+      'admin': 'admin.html',
+    };
+    window.location.href = redirections[data.user.role] || 'comercial.html';
+  } catch (err) {
+    if (errorBox) errorBox.textContent = err.message;
+    else alert(err.message);
+  }
+});
+  </script>
+</body>
+</html>

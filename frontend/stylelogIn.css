@@ -1,0 +1,297 @@
+/* ==========================================================================
+   Forges de Bazas — Login
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --charcoal: #53575c;
+  --charcoal-dark: #35383b;
+  --ink: #1d1e20;
+  --orange: #f2941e;
+  --orange-dark: #d97b0f;
+  --orange-soft: rgba(242, 148, 30, 0.1);
+  --bg: #f6f5f3;
+  --paper: #ffffff;
+  --line: #e3e1dd;
+  --muted: #8a8d90;
+  --danger: #d64545;
+
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---------------- Left panel : image ---------------- */
+
+.side {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: linear-gradient(160deg, #26282b, #1a1c1e);
+}
+
+.side img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  animation: kenBurns 18s ease-in-out infinite alternate;
+}
+@keyframes kenBurns {
+  from { transform: scale(1.02) translate(0, 0); }
+  to   { transform: scale(1.08) translate(-1%, -1%); }
+}
+
+/* halos orangés flous, effet néon discret décoratif */
+.side::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 85%, rgba(242, 148, 30, 0.35), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(242, 148, 30, 0.15), transparent 40%);
+  mix-blend-mode: screen;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Voile sombre en bas de l'image pour la lisibilité du titre */
+.side::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(29, 30, 32, 0.9) 0%, rgba(29, 30, 32, 0.15) 55%, transparent 78%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-title {
+  position:relative;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 180px 56px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.15rem;
+  line-height: 1.28;
+  letter-spacing: 0.2px;
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+  animation: heroIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title span {
+  color: var(--orange);
+  text-shadow: 0 0 24px rgba(242, 148, 30, 0.5);
+}
+
+/* ---------------- Right panel : form ---------------- */
+
+.form-side {
+  flex: 1;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.form-box {
+  width: 100%;
+  max-width: 380px;
+  animation: formIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes formIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.form-box h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+
+.form-box .sub {
+  margin: 0 0 32px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.field { margin-bottom: 20px; }
+
+.field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--charcoal-dark);
+}
+
+.field input {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-soft);
+  background: var(--paper);
+}
+
+.field input::placeholder { color: #b7b5b1; }
+
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  font-size: 0.85rem;
+}
+
+.row-between label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--charcoal-dark);
+}
+
+.row-between input[type="checkbox"] {
+  accent-color: var(--orange);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.row-between a {
+  color: var(--orange-dark);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+.row-between a:hover { color: var(--orange); text-decoration: underline; }
+
+.btn-primary {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(242, 148, 30, 0.32);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(242, 148, 30, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active { transform: translateY(0) scale(0.98); }
+
+.error-text {
+  margin: 14px 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--danger);
+  min-height: 1.2em;
+}
+.error-text:not(:empty) {
+  animation: shake 0.35s ease;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-5px); }
+  40%      { transform: translateX(4px); }
+  60%      { transform: translateX(-3px); }
+  80%      { transform: translateX(2px); }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.footer-text {
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.footer-text a {
+  color: var(--charcoal-dark);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.footer-text a:hover { color: var(--orange-dark); text-decoration: underline; }
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 900px) {
+  body { flex-direction: column; }
+  .side { height: 260px; }
+  .hero-title { font-size: 1.6rem; padding: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

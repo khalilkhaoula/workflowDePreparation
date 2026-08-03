@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="access-control.js"></script>
+<title>Mes demandes — Forges de Bazas</title>
+<link rel="stylesheet" href="styleComercial.css">
+<link rel="stylesheet" href="Stylenav.css">
+</head>
+<body>
+  <div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+<div class="sidebar-logo-row">
+  <div class="logo-badge">
+    <img src="/images/logo-icon.png" alt="" class="logo-img">
+  </div>
+  <div class="logo-text">
+    <span>FORGES</span>
+    <span>DE BAZAS</span>
+  </div>
+</div>
+
+    <nav class="sidebar-nav">
+      <a href="Dashbord.html" class="nav-item ">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="text">Dashboard</span>
+      </a>
+
+      <a href="comercial.html" class="nav-item active">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+        <span class="text">Les Demandes </span>
+      </a>
+
+      <a href="planification.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span class="text">Formulaire</span>
+      </a>
+
+      <a href="Compte.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="text">Mon compte</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="logIn.html" class="nav-item" onclick="localStorage.removeItem('authToken'); localStorage.removeItem('user');">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span class="text">Déconnecter</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+    <header class="topbar">
+      <div class="topbar-title">Les Demandes </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" title="Rechercher" data-search-target=".demandes-table tbody tr">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="icon-btn" title="Notifications" onclick="location.href='Notifications.html'">
+          <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="badge-count">1</span>
+        </button>
+        
+        <div class="user">
+  <span class="user-avatar">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  </span>
+  <div class="user-info">
+    <span class="user-name">S. Amrani</span>
+    <span class="user-role">Service commercial</span>
+  </div>
+</div>
+      </div>
+    </header>
+
+    <main class="page">
+
+    <div class="page-head">
+      <div>
+        <h1>Mes demandes</h1>
+        <p class="sub">Créez des demandes de préparation d'engins. Cliquez une ligne pour voir le détail.</p>
+      </div>
+      <button class="btn-primary" onclick="startNewDemande()">+ Nouvelle demande</button>
+    </div>
+
+    <div class="table-card">
+      <table class="demandes-table">
+        <thead>
+          <tr>
+            <th>Référence</th>
+            <th>Engin</th>
+            <th>Type de préparation</th>
+            <th>Date livraison</th>
+            <th>Statut</th>
+            <th class="col-actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-status="draft"
+              data-ref="DEM-2026-014"
+              data-engin="Chargeuse CAT 950"
+              data-type-intervention="Révision complète"
+              data-marque="Caterpillar"
+              data-piping="Standard"
+              data-num-serie="SN-45210"
+              data-priorite="Urgente"
+              data-statut-label="Brouillon"
+              data-client="Société ATLAS BTP"
+              data-contact="M. Rachidi — 06 12 34 56 78"
+              data-lieu="Zone industrielle, Aïn Sebaâ, Casablanca"
+              data-date-livraison="12/07/2026"
+              data-mode-livraison="Camion plateau"
+              data-desc="Prévoir accès grutier sur site.">
+            <td>DEM-2026-014</td>
+            <td>Chargeuse CAT 950</td>
+            <td>Révision complète</td>
+            <td>12/07/2026</td>
+            <td><span class="badge badge-draft">Brouillon</span></td>
+            <td class="col-actions">
+              <button class="btn-icon" onclick="event.stopPropagation(); handleModifier(this)">Modifier</button>
+              <button class="btn-send" onclick="event.stopPropagation()">Envoyer</button>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+    <div class="pagination-bar">
+  <button class="btn-icon" id="prevPage">‹</button>
+  <span id="pageInfo">Page 1</span>
+  <button class="btn-icon" id="nextPage">›</button>
+</div>
+  </main>
+
+  <div class="modal-overlay" id="detailOverlay">
+    <div class="modal modal-detail" id="printArea">
+      <div class="modal-head">
+        <h2 id="detailRef">DEM-000</h2>
+        <button class="modal-close no-print" onclick="closeDetail()">&times;</button>
+      </div>
+
+      <div class="modal-detail-body">
+
+        <div class="detail-section">
+          <h3 class="detail-section-title">Partie commerciale</h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="detail-label">Référence</span>
+              <span class="detail-value" id="detailRefField">—</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Type d'intervention</span>
+              <span class="detail-value" id="detailType">—</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Marque</span>
+              <span class="detail-value" id="detailMarque">—</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Piping</span>
+              <span class="detail-value" id="detailPiping">—</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">N° de série</span>
+              <span class="detail-value" id="detailNumSerie">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3 class="detail-section-title">Service spécifique</h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="detail-label">Nom du client</span>
+              <span class="detail-value" id="detailClient">—</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Contact</span>
+              <span class="detail-value" id="detailContact">—</span>
+            </div>
+            <div class="detail-item detail-item-span">
+              <span class="detail-label">Lieu de livraison</span>
+              <span class="detail-value" id="detailLieu">—</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Date de livraison</span>
+              <span class="detail-value" id="detailDateLivraison">—</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Mode de livraison</span>
+              <span class="detail-value" id="detailModeLivraison">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3 class="detail-section-title">Priorité &amp; statut</h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="detail-label">Priorité</span>
+              <span class="detail-value" id="detailPriorite">—</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Statut</span>
+              <span class="detail-value" id="detailStatut">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-desc">
+          <span class="detail-label">remarque</span>
+          <p id="detailDesc">—</p>
+        </div>
+
+        <div class="detail-section">
+          <h3 class="detail-section-title">Options </h3>
+          <table class="options-table">
+            <thead>
+              <tr>
+                <th>Option</th>
+              </tr>
+            </thead>
+            <tbody id="detailOptionsBody"></tbody>
+          </table>
+
+        </div>
+
+        <div class="modal-actions no-print">
+          <button class="btn-secondary" onclick="exportPdf(this)">Exporter en PDF</button>
+          <button class="btn-secondary" onclick="closeDetail()">Fermer</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="modalTitle">Nouvelle demande</h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); closeModal();">
+        <div class="field">
+          <label for="engin">Engin</label>
+          <input type="text" id="engin" placeholder="Ex : Chargeuse CAT 950" required>
+        </div>
+        <div class="field">
+          <label for="type">Type de préparation</label>
+          <select id="type" required>
+            <option value="">Sélectionner…</option>
+            <option>Révision complète</option>
+            <option>Contrôle avant livraison</option>
+            <option>Nettoyage + diagnostic</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="date">Date souhaitée</label>
+          <input type="date" id="date" required>
+        </div>
+        <div class="field">
+          <label for="desc">en</label>
+          <textarea id="desc" rows="3" placeholder="Précisions utiles au service technique…"></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeModal()">Annuler</button>
+          <button type="submit" class="btn-primary">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  
+
+const API_BASE = '/api';
+function authHeaders() {
+  const token = localStorage.getItem('authToken');
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+const STATUT_LABELS = { brouillon: 'Brouillon', envoyee: 'Envoyée', en_cours: 'En cours', terminee: 'Terminée' };
+const STATUT_BADGE  = { brouillon: 'badge-draft', envoyee: 'badge-sent', en_cours: 'badge-progress', terminee: 'badge-done' };
+
+let currentDemande = null;
+
+let pageActuelle = 1;
+const LIMITE = 10;
+
+async function chargerDemandes() {
+  const res = await fetch(`${API_BASE}/demandes?mine=true&page=${pageActuelle}&limit=${LIMITE}`, { headers: authHeaders() });
+  const { demandes, total } = await res.json();
+
+  const tbody = document.querySelector('.demandes-table tbody');
+  tbody.innerHTML = demandes.map(d => `
+    <tr data-ref="${d.reference}" data-statut="${d.statut}">
+      <td>${d.reference}</td>
+      <td>${d.engin_nom}</td>
+      <td>${d.type_intervention}</td>
+      <td>${d.date_livraison ? new Date(d.date_livraison).toLocaleDateString('fr-FR') : '—'}</td>
+      <td><span class="badge ${STATUT_BADGE[d.statut]}">${STATUT_LABELS[d.statut]}</span></td>
+      <td class="col-actions">
+        ${d.statut === 'brouillon'
+          ? `<button class="btn-icon" onclick="event.stopPropagation(); modifierDemande('${d.reference}')">Modifier</button>
+             <button class="btn-send" onclick="event.stopPropagation(); envoyerDemande('${d.reference}')">Envoyer</button>
+             <button class="btn-icon btn-icon-danger" title="Supprimer" onclick="event.stopPropagation(); supprimerDemande('${d.reference}')">🗑</button>`
+          : `<button class="btn-send" disabled>Envoyée</button>`}
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" class="options-empty">Aucune demande pour l\'instant.</td></tr>';
+
+  tbody.querySelectorAll('tr[data-ref]').forEach(row => {
+    row.addEventListener('click', () => openDetail(row.dataset.ref));
+  });
+
+  const totalPages = Math.max(1, Math.ceil(total / LIMITE));
+  document.getElementById('pageInfo').textContent = `Page ${pageActuelle} / ${totalPages}`;
+  document.getElementById('prevPage').disabled = pageActuelle <= 1;
+  document.getElementById('nextPage').disabled = pageActuelle >= totalPages;
+}
+
+document.getElementById('prevPage').addEventListener('click', () => {
+  if (pageActuelle > 1) { pageActuelle--; chargerDemandes(); }
+});
+document.getElementById('nextPage').addEventListener('click', () => {
+  pageActuelle++; chargerDemandes();
+});
+
+async function supprimerDemande(reference) {
+  if (!confirm(`Supprimer définitivement la demande ${reference} ? Cette action est irréversible.`)) return;
+  const res = await fetch(`${API_BASE}/demandes/${reference}`, { method: 'DELETE', headers: authHeaders() });
+  if (!res.ok) { alert((await res.json()).error); return; }
+  chargerDemandes();
+}
+function startNewDemande() {
+  localStorage.removeItem('demandeForm');
+  window.location.href = 'Fcomercial.html';
+}
+
+async function modifierDemande(reference) {
+  const res = await fetch(`${API_BASE}/demandes/${reference}/detail`, { headers: authHeaders() });
+  if (!res.ok) {
+    alert('Impossible de charger la demande.');
+    return;
+  }
+  const demande = await res.json();
+
+  localStorage.setItem('demandeForm', JSON.stringify({
+  reference: demande.reference,
+  marque: demande.marque,
+  modele: demande.modele,
+  mat: demande.mat,
+  piping: demande.piping,
+numSeries: demande.numSeries || [],  nombreEngins: demande.nombreEngins || 1,
+  typeIntervention: demande.typeIntervention,
+  nomClient: demande.client,
+  contact: demande.contact,
+  lieuLivraison: demande.lieu,
+  dateLivraison: demande.dateLivraison,
+  modeLivraison: demande.modeLivraison,
+  remarque: demande.remarque,
+  priorite: demande.priorite,
+  options: (demande.options || []).filter(o => !o.libre).map(o => ({ optionId: o.optionId, sousOptionId: o.sousOptionId })),
+  freeOptions: (demande.options || []).filter(o => o.libre).map(o => o.label),
+}));
+
+  window.location.href = 'Fcomercial.html';
+}
+
+async function envoyerDemande(reference) {
+  try {
+    const res = await fetch(`${API_BASE}/demandes/${reference}/envoyer`, {
+      method: 'PATCH',
+      headers: authHeaders(),
+    });
+    if (!res.ok) throw new Error((await res.json()).error);
+    await chargerDemandes();
+  } catch (err) {
+    alert("Impossible d'envoyer la demande : " + err.message);
+  }
+}
+
+async function openDetail(reference) {
+  const res = await fetch(`${API_BASE}/demandes/${reference}/detail`, { headers: authHeaders() });
+  if (!res.ok) return;
+  const d = await res.json();
+  currentDemande = d;
+
+  document.getElementById('detailRef').textContent = d.reference;
+  document.getElementById('detailRefField').textContent = d.reference;
+  document.getElementById('detailType').textContent = d.typeIntervention;
+  document.getElementById('detailMarque').textContent = d.marque;
+  document.getElementById('detailPiping').textContent = d.piping;
+document.getElementById('detailNumSerie').textContent = (d.numSeries || []).join(', ') || '—';  document.getElementById('detailPriorite').textContent = d.priorite;
+  document.getElementById('detailStatut').textContent = STATUT_LABELS[d.statut];
+  document.getElementById('detailClient').textContent = d.client;
+  document.getElementById('detailContact').textContent = d.contact;
+  document.getElementById('detailLieu').textContent = d.lieu;
+  document.getElementById('detailDateLivraison').textContent = d.dateLivraison ? new Date(d.dateLivraison).toLocaleDateString('fr-FR') : '—';
+  document.getElementById('detailModeLivraison').textContent = d.modeLivraison;
+  document.getElementById('detailDesc').textContent = d.remarque || '—';
+
+  document.getElementById('detailOptionsBody').innerHTML = (d.options || []).map(o => `
+    <tr><td class="options-option">${o.label}</td></tr>
+  `).join('') || '<tr><td class="options-empty">Aucune option choisie.</td></tr>';
+
+  document.getElementById('detailOverlay').classList.add('active');
+}
+
+function closeDetail() { document.getElementById('detailOverlay').classList.remove('active'); }
+document.getElementById('detailOverlay').addEventListener('click', e => {
+  if (e.target.id === 'detailOverlay') closeDetail();
+});
+
+const PDF_SERVICE_URL = `${API_BASE}/demandes/export-pdf`;
+async function exportPdf(btn) {
+  if (!currentDemande) return;
+  const originalText = btn.textContent;
+  btn.textContent = 'Génération…';
+  btn.disabled = true;
+  try {
+    const response = await fetch(PDF_SERVICE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      body: JSON.stringify(currentDemande),
+    });
+    if (!response.ok) throw new Error('Échec de la génération du PDF');
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `${currentDemande.reference}.pdf`;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error(err);
+    alert('Impossible de générer le PDF.');
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+}
+async function supprimerDemande(reference) {
+  if (!confirm(`Supprimer définitivement la demande ${reference} ? Cette action est irréversible.`)) return;
+  const res = await fetch(`${API_BASE}/demandes/${reference}`, { method: 'DELETE', headers: authHeaders() });
+  if (!res.ok) { alert((await res.json()).error); return; }
+  chargerDemandes();
+}
+document.addEventListener('DOMContentLoaded', chargerDemandes);
+
+  </script>
+  <script src="nav.js"></script>
+</div>
+</div>
+
+</body>
+</html>

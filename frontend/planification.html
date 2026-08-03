@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="access-control.js"></script>
+<title>Planification — Forges de Bazas</title>
+<link rel="stylesheet" href="Stylegantt.css">
+<link rel="stylesheet" href="Stylenav.css">
+</head>
+<body>
+  <div class="app-shell">
+
+   <aside class="sidebar" id="sidebar">
+<div class="sidebar-logo-row">
+  <div class="logo-badge">
+    <img src="/images/logo-icon.png" alt="" class="logo-img">
+  </div>
+  <div class="logo-text">
+    <span>FORGES</span>
+    <span>DE BAZAS</span>
+  </div>
+</div>
+
+      <nav class="sidebar-nav">
+        <a href="Dashbord.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="text">Dashboard</span>
+        </a>
+        <a href="Technique.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span class="text">Service technique</span>
+        </a>
+        <a href="planification.html" class="nav-item active">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span class="text">Planning</span>
+        </a>
+        <a href="Compte.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="text">Mon compte</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="logIn.html" class="nav-item" onclick="localStorage.removeItem('authToken'); localStorage.removeItem('user');">
+          <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span class="text">Déconnecter</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-title">Planification</div>
+        <div class="topbar-actions">
+          <button class="icon-btn" title="Notifications" onclick="location.href='Notifications.html'">
+            <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="badge-count">3</span>
+          </button>
+          
+          <div class="user">
+            <span class="user-avatar">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
+            <div class="user-info">
+              <span class="user-name">Y. Bennani</span>
+              <span class="user-role">Service technique</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page">
+        <div class="page-head">
+          <div>
+            <h1>Planification</h1>
+            <p class="sub">Cliquez un jour pour voir les demandes planifiées et ajouter une option.</p>
+          </div>
+        </div>
+
+        <div class="nav-bar">
+          <button class="nav-arrow" id="prevBtn">‹</button>
+          <span class="nav-label" id="navLabel">—</span>
+          <button class="nav-arrow" id="nextBtn">›</button>
+        </div>
+
+        <div class="month-card">
+          <div class="month-weekdays" id="monthWeekdays"></div>
+          <div class="month-grid" id="monthGrid"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="day-overlay" id="dayOverlay">
+    <div class="day-panel">
+      <div class="day-panel-head">
+        <h2 id="dayTitle">—</h2>
+        <button class="modal-close" onclick="closeDay()">&times;</button>
+      </div>
+
+      <div class="day-task-list" id="dayTaskList"></div>
+
+      <button class="btn-add-option" id="showFormBtn" onclick="openOptionForm()">+ Ajouter une option</button>
+
+<div class="pending-banner" id="pendingBanner" hidden>
+  <span id="pendingBannerText"></span>
+  <button type="button" class="btn-secondary" onclick="cancelPendingDemande()">Annuler</button>
+</div>
+
+<form class="option-form" id="optionForm" hidden>
+  <h3 class="form-title" id="formTitle">Planifier une option</h3>
+
+  <div class="grid-2">
+    <div class="field">
+      <label>Demande</label>
+      <input type="text" id="optDemandeRef" readonly>
+    </div>
+    <div class="field">
+      <label>Option</label>
+      <select id="optOption" required></select>
+    </div>
+    <div class="field">
+      <label>Technicien</label>
+      <select id="optTechnicien" required></select>
+    </div>
+    <div class="field">
+      <label for="optHeureDebut">Heure de début</label>
+      <input type="time" id="optHeureDebut" required>
+    </div>
+    <div class="field">
+      <label>Heure de fin</label>
+      <input type="text" id="optHeureFin" readonly>
+    </div>
+    <div class="field checkbox-field">
+      <label>
+        <input type="checkbox" id="optIsEnd">
+        Cette date correspond à la date de fin prévue de la demande
+      </label>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn-secondary" onclick="cancelForm()">Annuler</button>
+    <button type="submit" class="btn-primary" id="submitBtn">Planifier</button>
+  </div>
+</form>
+
+  <script src="planification.js"></script>
+  <script src="nav.js"></script>
+</body>
+</html>

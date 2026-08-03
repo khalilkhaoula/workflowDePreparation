@@ -1,0 +1,428 @@
+/* ==========================================================================
+   Forges de Bazas — Catalogue des engins
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --charcoal: #53575c;
+  --charcoal-dark: #35383b;
+  --ink: #1d1e20;
+  --orange: #f2941e;
+  --orange-dark: #d97b0f;
+  --orange-soft: rgba(242, 148, 30, 0.1);
+  --bg: #f6f5f3;
+  --paper: #ffffff;
+  --line: #e3e1dd;
+  --muted: #8a8d90;
+
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+  font-size: 14px;
+}
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 36px 32px 60px;
+  animation: pageIn 0.35s ease;
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-head { margin-bottom: 22px; }
+
+.page-head h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 1.5rem;
+  margin: 0 0 6px;
+}
+
+.page-head .sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+/* ---------------- Grille de cartes ---------------- */
+
+.engin-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.engin-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(29, 30, 32, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  animation: cardIn 0.3s ease backwards;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.engin-card:hover {
+  border-color: var(--orange);
+  box-shadow: 0 10px 28px rgba(29, 30, 32, 0.1), 0 0 0 3px var(--orange-soft);
+  transform: translateY(-3px);
+}
+
+.engin-image {
+  width: 100%;
+  height: 180px;
+  background: #f0efec;
+  border-bottom: 1px solid var(--line);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: transform 0.35s ease;
+}
+
+.engin-card:hover .engin-image { transform: scale(1.05); }
+
+.engin-image img { display: none; }
+
+.engin-body { padding: 14px 16px 16px; }
+
+.engin-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin: 0 0 10px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.spec-list {
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.spec-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.spec-item dt {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.spec-item dd {
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------------- Pied de page / bouton ajouter ---------------- */
+
+.page-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: #fff;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(242, 148, 30, 0.3);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-primary:hover { box-shadow: 0 6px 20px rgba(242, 148, 30, 0.42); transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0) scale(0.98); }
+
+/* ---------------- Fenêtre de détail ---------------- */
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(29, 30, 32, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+  z-index: 100;
+  padding: 24px;
+}
+
+.drawer-overlay.active { opacity: 1; visibility: visible; }
+
+.detail-modal {
+  width: 100%;
+  max-width: 920px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: 16px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+  transform: scale(0.94) translateY(8px);
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+}
+.drawer-overlay.active .detail-modal { transform: scale(1) translateY(0); opacity: 1; }
+
+.detail-header {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.drawer-close:hover { background: var(--bg); color: #d64545; }
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.eyebrow::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  border-radius: 3px;
+  background: var(--orange);
+  box-shadow: 0 0 8px rgba(242, 148, 30, 0.5);
+}
+
+.detail-image-wrapper { display: none !important; }
+.detail-header h2 { display: none !important; }
+
+.drawer-specs .spec-list {
+  border-top: none;
+  padding-top: 0;
+  flex-direction: row;
+  gap: 0;
+}
+
+.drawer-specs .spec-item {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  border-right: 1px solid var(--line);
+  padding-right: 10px;
+}
+
+.drawer-specs .spec-item:last-child { border-right: none; padding-right: 0; }
+.drawer-specs .spec-item dt { color: var(--muted); }
+.drawer-specs .spec-item dd { color: var(--ink); text-align: left; font-size: 0.86rem; }
+
+/* ===== Colonnes : options / pièces / temps ===== */
+
+.detail-columns {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 0.7fr;
+  gap: 0;
+  align-items: start;
+}
+
+.drawer-section {
+  padding: 22px 20px;
+  border-right: 1px solid var(--line);
+  min-height: 200px;
+}
+.drawer-section:last-child { border-right: none; }
+
+.drawer-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-section-title::before {
+  content: '';
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--orange);
+  box-shadow: 0 0 6px rgba(242, 148, 30, 0.5);
+}
+
+/* Options */
+.option-simple-list { display: flex; flex-direction: column; gap: 0; }
+
+.option-simple-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bg);
+  font-size: 0.84rem;
+  min-height: 52px;
+  transition: background 0.15s ease;
+}
+.option-simple-row:last-child { border-bottom: none; }
+
+.option-simple-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px var(--orange-soft);
+}
+
+.option-simple-label { font-weight: 700; color: var(--charcoal-dark); }
+
+/* Pièces */
+.pieces-list { display: flex; flex-direction: column; gap: 0; }
+
+.piece-row {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bg);
+  font-size: 0.8rem;
+  color: var(--charcoal-dark);
+  line-height: 1.5;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s ease;
+}
+.piece-row:last-child { border-bottom: none; }
+
+.piece-row .pieces-list-items { display: flex; flex-wrap: wrap; gap: 4px 8px; }
+.piece-row .piece-item { display: inline; white-space: nowrap; font-size: 0.78rem; color: var(--charcoal-dark); }
+.piece-row .piece-item:not(:last-child)::after { content: " • "; color: var(--orange); font-weight: bold; }
+.piece-row .piece-dot { display: none; }
+
+/* Temps */
+.time-list { display: flex; flex-direction: column; gap: 0; }
+
+.time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bg);
+  font-size: 0.8rem;
+  min-height: 52px;
+  transition: background 0.15s ease;
+}
+.time-row:last-child { border-bottom: none; }
+
+.time-label { font-weight: 500; color: var(--charcoal-dark); font-size: 0.78rem; }
+
+.time-badge {
+  display: inline-block;
+  background: var(--orange-soft);
+  color: var(--orange-dark);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Survol des lignes */
+.option-simple-row:hover,
+.piece-row:hover,
+.time-row:hover {
+  background-color: var(--orange-soft);
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 1080px) {
+  .engin-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .detail-columns { grid-template-columns: 1fr; }
+  .drawer-section { border-right: none; border-bottom: 1px solid var(--line); }
+  .drawer-section:last-child { border-bottom: none; }
+  .option-simple-row, .piece-row, .time-row { min-height: 40px; padding: 8px 0; }
+}
+
+@media (max-width: 780px) {
+  .engin-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .engin-grid { grid-template-columns: 1fr; }
+  .page { padding: 20px 16px; }
+  .drawer-specs .spec-list { flex-direction: column; gap: 10px; }
+  .drawer-specs .spec-item { border-right: none; padding-right: 0; }
+}

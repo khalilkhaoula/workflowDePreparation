@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="access-control.js"></script>
+<title>Notifications — Forges de Bazas</title>
+<link rel="stylesheet" href="Stylenotifications.css">
+<link rel="stylesheet" href="Stylenav.css">
+</head>
+<body>
+  <div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+<div class="sidebar-logo-row">
+  <div class="logo-badge">
+    <img src="/images/logo-icon.png" alt="" class="logo-img">
+  </div>
+  <div class="logo-text">
+    <span>FORGES</span>
+    <span>DE BAZAS</span>
+  </div>
+</div>
+      <nav class="sidebar-nav">
+        <a href="Dashbord.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="text">Dashboard</span>
+        </a>
+        <a href="Technique.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span class="text">Service technique</span>
+        </a>
+        <a href="planification.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span class="text">Planning</span>
+        </a>
+        <a href="Compte.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="text">Mon compte</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="logIn.html" class="nav-item" onclick="localStorage.removeItem('authToken'); localStorage.removeItem('user');">
+          <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span class="text">Déconnecter</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <main class="page">
+        <div class="page-head">
+          <div>
+            <h1>Notifications</h1>
+            <p class="sub" id="nonLuesLabel">— non lues</p>
+          </div>
+          <button class="btn-secondary" onclick="markAllRead()">Tout marquer comme lu</button>
+        </div>
+
+        <div class="type-tabs" id="typeTabs">
+          <button class="type-tab active" data-type="all">Toutes</button>
+          <button class="type-tab" data-type="reception">Réception</button>
+          <button class="type-tab" data-type="planification">Planification</button>
+          <button class="type-tab" data-type="terminaison">Terminaison</button>
+          <button class="type-tab" data-type="retard">Retard</button>
+        </div>
+
+        <div class="notif-list" id="notifList"></div>
+        <p class="empty-state" id="emptyState" hidden>Aucune notification dans cette catégorie.</p>
+
+        <div class="pagination" id="pagination"></div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = '/api';
+    function authHeaders() {
+      const token = localStorage.getItem('authToken');
+      return token ? { Authorization: `Bearer ${token}` } : {};
+    }
+
+    const TYPE_META = {
+      reception:     { label: 'Réception',     icon: 'new'  },
+      planification: { label: 'Planification', icon: 'plan' },
+      terminaison:   { label: 'Terminaison',    icon: 'done' },
+      retard:        { label: 'Retard',         icon: 'alert'},
+    };
+
+    const ICONS = {
+      new:   '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>',
+      plan:  '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+      done:  '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+      alert: '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+    };
+
+    let currentType = 'all';
+    let currentPage = 1;
+    const PAGE_SIZE = 8;
+
+    function timeAgo(dateStr) {
+      const diffMin = Math.round((Date.now() - new Date(dateStr)) / 60000);
+      if (diffMin < 60) return `Il y a ${diffMin} minute${diffMin > 1 ? 's' : ''}`;
+      if (diffMin < 1440) return `Il y a ${Math.round(diffMin / 60)} heure${Math.round(diffMin / 60) > 1 ? 's' : ''}`;
+      return new Date(dateStr).toLocaleDateString('fr-FR');
+    }
+
+    async function chargerNotifications() {
+      const params = new URLSearchParams({ type: currentType, page: currentPage, limit: PAGE_SIZE });
+      const res = await fetch(`${API_BASE}/notifications?${params}`, { headers: authHeaders() });
+      const data = await res.json();
+      render(data);
+    }
+
+    function render({ items, total, nonLues }) {
+      document.getElementById('nonLuesLabel').textContent = `${nonLues} non lue${nonLues > 1 ? 's' : ''}`;
+
+      const list = document.getElementById('notifList');
+      document.getElementById('emptyState').hidden = items.length > 0;
+
+      list.innerHTML = items.map(n => {
+        const meta = TYPE_META[n.type] || TYPE_META.reception;
+        return `
+        <div class="notif-item ${n.statut === 'non_lue' ? 'unread' : ''}" onclick="ouvrirNotif(${n.id}, '${n.reference || ''}','${n.lien || ''}')">
+          <div class="notif-icon notif-icon-${meta.icon}">
+            <svg viewBox="0 0 24 24">${ICONS[meta.icon]}</svg>
+          </div>
+          <div class="notif-body">
+            <div class="notif-top-row">
+              <p class="notif-title">${n.titre}</p>
+              <span class="type-pill type-pill-${meta.icon}">${meta.label}</span>
+            </div>
+            <p class="notif-desc">${n.message}</p>
+            <span class="notif-time">${timeAgo(n.date_creation)}</span>
+          </div>
+          ${n.statut === 'non_lue' ? '<span class="notif-dot"></span>' : ''}
+        </div>
+      `;
+      }).join('');
+
+      renderPagination(total);
+    }
+
+    function renderPagination(total) {
+      const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      const pag = document.getElementById('pagination');
+      if (totalPages <= 1) { pag.innerHTML = ''; return; }
+
+      let html = `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changerPage(${currentPage - 1})">‹</button>`;
+      for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changerPage(${i})">${i}</button>`;
+      }
+      html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changerPage(${currentPage + 1})">›</button>`;
+      pag.innerHTML = html;
+    }
+
+    function changerPage(p) {
+      currentPage = p;
+      chargerNotifications();
+    }
+
+    document.querySelectorAll('.type-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentType = tab.dataset.type;
+        currentPage = 1;
+        chargerNotifications();
+      });
+    });
+
+   async function marquerLue(id) {
+      await fetch(`${API_BASE}/notifications/${id}/lue`, { method: 'PATCH', headers: authHeaders() });
+    }
+ 
+  async function ouvrirNotif(id, reference, lien) {
+  await marquerLue(id);
+
+  if (lien) { location.href = lien; return; }
+  if (!reference) { await chargerNotifications(); return; }
+
+  localStorage.setItem('openDemandeRef', reference);
+  const role = JSON.parse(atob(localStorage.getItem('authToken').split('.')[1])).role;
+
+  if (role === 'technicien') location.href = 'Technicien.html';
+  else if (['responsable commercial', 'assistant commercial'].includes(role)) location.href = 'comercial.html';
+  else location.href = 'Technique.html';
+}
+
+    async function markAllRead() {
+      await fetch(`${API_BASE}/notifications/tout-marquer-lu`, { method: 'PATCH', headers: authHeaders() });
+      await chargerNotifications();
+    }
+
+    document.addEventListener('DOMContentLoaded', chargerNotifications);
+  </script>
+  <script src="nav.js"></script>
+</body>
+</html>
