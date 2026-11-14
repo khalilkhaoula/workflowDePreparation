@@ -22,6 +22,7 @@ function buildDemandeHtml(d) {
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<title>${escapeHtml(d.reference)}</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
   :root {
@@ -29,8 +30,8 @@ function buildDemandeHtml(d) {
     --bg:#f6f5f3; --paper:#ffffff; --line:#e3e1dd; --muted:#8a8d90; --charcoal:#53575c;
   }
   * { box-sizing: border-box; }
-  body { margin:0; font-family:'Inter',sans-serif; color:var(--ink); padding:36px; background:var(--paper); }
-
+  @page { size: A4; margin: 10mm; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .header {
     display:flex; align-items:center; justify-content:space-between;
     padding-bottom:18px; margin-bottom:6px; border-bottom:1px solid var(--line);

@@ -422,6 +422,9 @@ document.getElementById('detailOverlay').addEventListener('click', e => {
 const PDF_SERVICE_URL = `${API_BASE}/demandes/export-pdf`;
 async function exportPdf(btn) {
   if (!currentDemande) return;
+  const w = window.open('', '_blank');
+  if (!w) { alert('Autorisez les fenêtres pop-up pour exporter le PDF.'); return; }
+
   const originalText = btn.textContent;
   btn.textContent = 'Génération…';
   btn.disabled = true;
@@ -432,20 +435,20 @@ async function exportPdf(btn) {
       body: JSON.stringify(currentDemande),
     });
     if (!response.ok) throw new Error('Échec de la génération du PDF');
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `${currentDemande.reference}.pdf`;
-    document.body.appendChild(a); a.click(); a.remove();
-    URL.revokeObjectURL(url);
+    const html = await response.text();
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
   } catch (err) {
     console.error(err);
+    w.close();
     alert('Impossible de générer le PDF.');
   } finally {
     btn.textContent = originalText;
     btn.disabled = false;
   }
 }
+
 async function supprimerDemande(reference) {
   if (!confirm(`Supprimer définitivement la demande ${reference} ? Cette action est irréversible.`)) return;
   const res = await fetch(`${API_BASE}/demandes/${reference}`, { method: 'DELETE', headers: authHeaders() });

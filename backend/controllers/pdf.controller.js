@@ -1,4 +1,4 @@
-const { generateDemandePdf } = require('../services/pdf.service');
+const { buildDemandeHtml } = require('../templates/demande.pdf.template');
 
 async function exportDemandePdf(req, res) {
   const demande = req.body;
@@ -6,17 +6,11 @@ async function exportDemandePdf(req, res) {
     return res.status(400).json({ error: 'Données de demande manquantes (reference requise).' });
   }
 
-  try {
-    const pdfBuffer = await generateDemandePdf(demande);
-    res.set({
-      'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${demande.reference}.pdf"`,
-    });
-    res.send(pdfBuffer);
-  } catch (err) {
-    console.error('Erreur génération PDF :', err);
-    res.status(500).json({ error: 'Échec de la génération du PDF.' });
-  }
+  const html = buildDemandeHtml(demande).replace(
+    '</body>',
+    '<script>window.addEventListener("load", () => setTimeout(() => window.print(), 300));</script></body>'
+  );
+  res.type('html').send(html);
 }
 
 module.exports = { exportDemandePdf };

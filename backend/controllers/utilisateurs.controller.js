@@ -42,10 +42,16 @@ async function create(req, res) {
       [nom, prenom, emailPro, hash, role]
     );
 
+  let emailEnvoye = true;
+  try {
     await envoyerIdentifiants(emailPro, prenom, tempPassword);
+  } catch (e) {
+    console.error('Email non envoyé :', e.message);
+    emailEnvoye = false;
+  }
     await logAction(null, req.user.id, 'Compte créé', `Compte créé pour ${prenom} ${nom} (${role})`);
 
-    res.status(201).json({ id: result.insertId, nom, prenom, emailPro, role, statut: 'actif' });
+    res.status(201).json({ id: result.insertId, nom, prenom, emailPro, role, statut: 'actif', emailEnvoye  });
   } catch (err) {
     if (err.code === 'ER_DUP_ENTRY') {
       return res.status(409).json({ error: 'Cet email est déjà utilisé.' });
